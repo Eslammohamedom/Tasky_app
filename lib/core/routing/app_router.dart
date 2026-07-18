@@ -12,7 +12,7 @@ import '../../features/profile/ui/profile_screen.dart';
 import '../../features/signup/ui/signup_screen.dart';
 import '../../features/splash/splash_screen.dart';
 import '../../features/task_details/ui/task_details_screen.dart';
-
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 class AppRouter {
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {

@@ -30,6 +30,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   final TextEditingController passwordController = TextEditingController();
   SignUpModel signupModel = SignUpModel();
   SignUpFailModel signupFailModel = SignUpFailModel();
+  String? fullPhoneNumber;
 
   List<String> experienceLevelList = ["fresh" , "junior" , "midLevel" , "senior"];
 
@@ -54,7 +55,7 @@ void saveExperienceLevel(String txt,BuildContext context){
   Future<void> userRegister({required BuildContext context}) async {
     emit(SignUpLoading());
     await DioHelper.postData(url: ApiConstants.signUpUrl, data: {
-      'phone': phoneController.text.trim(),
+      'phone': fullPhoneNumber,
       'password': passwordController.text.trim(),
       'displayName': nameController.text.trim(),
       'experienceYears': int.tryParse(yearsOfExperienceController.text) ?? 0,

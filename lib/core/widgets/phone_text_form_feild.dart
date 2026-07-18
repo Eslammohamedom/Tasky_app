@@ -7,14 +7,16 @@ import '../theming/styles.dart';
 
 Widget appPhoneTextField(
     {required TextEditingController controller,bool disableLengthCheck = true,
+      void Function(String completeNumber)? onPhoneChanged,
+
       })
     {
   return IntlPhoneField(
-    dropdownIconPosition: IconPosition.trailing,
+    dropdownIconPosition:IconPosition.trailing,
     dropdownIcon: Icon(Icons.keyboard_arrow_down_rounded,color: AppColorsManager.greyDark,size: 24.sp,),
     controller: controller,
     languageCode: 'ar',
-    disableLengthCheck: disableLengthCheck,
+    disableLengthCheck:disableLengthCheck,
     validator: (value) {
       if (value == null || value.number.isEmpty) {
         return 'Please enter a valid phone number';
@@ -47,10 +49,16 @@ Widget appPhoneTextField(
     ),
     initialCountryCode: 'EG', // Set your default country selection
     onChanged: (phone) {
+      if (onPhoneChanged != null) {
+        onPhoneChanged(phone.completeNumber);
+      }
 
+      debugPrint('Country changed to: ${phone}');
     },
     onCountryChanged: (country) {
       debugPrint('Country changed to: ${country.name}');
+      debugPrint('Country changed to: ${country.code}');
+      debugPrint('Country changed to: +${country.dialCode}');
     },
   );
 

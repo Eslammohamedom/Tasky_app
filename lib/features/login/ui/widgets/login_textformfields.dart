@@ -25,7 +25,10 @@ class LoginTextFormFields extends StatelessWidget {
         children: [
           Text("Login",style: AppTextStyles.font24BlackBold,),
           verticalSpace(24),
-          appPhoneTextField(controller: cubit.phoneController,),
+          appPhoneTextField(controller: cubit.phoneController,
+            onPhoneChanged: (completeNumber) {
+            cubit.fullPhoneNumber = completeNumber;
+          },),
           verticalSpace(24),
           AppTextFormField(
             maxLines: 1,

@@ -1,13 +1,11 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import '../helpers/constants.dart';
 import '../helpers/refresh_token_model.dart';
 import '../helpers/secured_storage_helper.dart';
-import '../helpers/sharedprefrences_helper.dart';
+import '../routing/app_router.dart';
+import '../routing/routs.dart';
 import 'api_constants.dart';
 
 //Dio Helper That's Connect and Talk to API.
@@ -37,9 +35,9 @@ class DioHelper {
         if (e.response?.statusCode == 401 ) {
           final String? refreshToken = await SecureStorageHelper.getData(key:SecureStorageKeys.refreshToken );
           final String? token = await SecureStorageHelper.getData(key:SecureStorageKeys.accessToken );
-          RefreshTokenModel? refreshTokenModel;
           debugPrint("===================> 401 Error Caught! Attempting Token Refresh...");
           debugPrint(refreshToken);
+          debugPrint("ACCESSTOKEN==========>$token");
           if (refreshToken != null) {
             try{
               final response = await  getData(
@@ -67,13 +65,16 @@ class DioHelper {
                 // Resolve the handler with the successful cloned response back to Bloc
                 return handler.resolve(clonedResponse);
               }
-              if (response.statusCode == 403) {
+            } on DioException catch (error) {
+              if (error.response?.statusCode == 403){
+                debugPrint("====> TOKEN REFRESH STATUS CODE: ${error.response?.statusCode}");
                 await SecureStorageHelper.removeData(key: SecureStorageKeys.accessToken);
+                debugPrint("====> Token refresh request failed isLoggedInUser:==========> $isLoggedInUser");
+                navigatorKey.currentState?.pushReplacementNamed(Routes.loginScreen);
               }
-            }catch(e){
-              debugPrint("====> Token refresh request failed: $e");
-
-            }
+            } catch (error) {
+              debugPrint("====> Token refresh request failed: $error");
+        }
 
           }
 

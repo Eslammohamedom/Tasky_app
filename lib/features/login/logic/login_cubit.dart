@@ -20,7 +20,7 @@ class LoginCubit extends Cubit<LoginState> {
   static LoginCubit get(context) => BlocProvider.of(context);
 final TextEditingController phoneController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
-
+String? fullPhoneNumber;
 
 LoginModel loginModel = LoginModel();
 LoginFailModel loginFailModel = LoginFailModel();
@@ -28,7 +28,7 @@ LoginFailModel loginFailModel = LoginFailModel();
   Future<void> userLogin({required BuildContext context}) async {
     emit(LoginLoading());
     await DioHelper.postData(url: ApiConstants.loginUrl, data: {
-      'phone': phoneController.text.trim(),
+      'phone': fullPhoneNumber,
       'password': passwordController.text.trim(),
     }).then((value) async{
       if (value.statusCode == 201){

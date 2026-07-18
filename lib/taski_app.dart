@@ -18,6 +18,7 @@ class TaskiApp extends StatelessWidget {
           primaryColor: AppColorsManager.mainBlue,
           scaffoldBackgroundColor: Colors.white,),
         debugShowCheckedModeBanner: false,
+        navigatorKey: navigatorKey,
         initialRoute: Routes.splashScreen,
         onGenerateRoute: appRouter.generateRoute,
       ),

@@ -25,7 +25,9 @@ Widget signUpTextFormField({required SignUpCubit cubit, required BuildContext co
             return null;
           },),
         verticalSpace(16),
-        appPhoneTextField(controller: cubit.phoneController),
+        appPhoneTextField(controller: cubit.phoneController, onPhoneChanged: (completeNumber) {
+          cubit.fullPhoneNumber = completeNumber;
+        }),
         verticalSpace(16),
         AppTextFormField(
           controller: cubit.yearsOfExperienceController,
