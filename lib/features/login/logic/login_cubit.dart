@@ -4,10 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-
 import '../../../core/helpers/constants.dart';
 import '../../../core/helpers/secured_storage_helper.dart';
-import '../../../core/helpers/sharedprefrences_helper.dart';
 import '../../../core/networking/api_constants.dart';
 import '../../../core/networking/dio_helper.dart';
 import '../models/login_fail_model.dart';

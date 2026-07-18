@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:taski/core/routing/routs.dart';
 import '../../features/add_new_task/ui/add_new_task_screen.dart';
 import '../../features/home/ui/home_screen.dart';
 import '../../features/home/ui/widgets/qr_reader/qr_reader_screen.dart';
 import '../../features/login/ui/login_screen.dart';
 import '../../features/onBoarding/ui/onboarding_screen.dart';
-import '../../features/add_new_task/logic/add_task_cubit.dart';
 
 import '../../features/profile/ui/profile_screen.dart';
 import '../../features/signup/ui/signup_screen.dart';
