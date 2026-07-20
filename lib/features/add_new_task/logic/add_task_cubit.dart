@@ -122,14 +122,6 @@ void deletePickedImage(){
           if (value.statusCode == 201 || value.statusCode == 200) {
             addTaskModel = AddTaskModel.fromJson(value.data);
             debugPrint("${addTaskModel.sId.toString().toUpperCase()} ==++ SUCCESS");
-
-            showTopSnackBar(
-              Overlay.of(context),
-              CustomSnackBar.success(
-                message: "task added successfully".toUpperCase(),
-              ),
-            );
-
             emit(AddTaskTextsSuccess());
             removeAllSavedData();
           }

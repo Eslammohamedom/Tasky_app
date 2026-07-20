@@ -8,6 +8,8 @@ import 'package:taski/core/widgets/app_text_button.dart';
 import 'package:taski/features/login/ui/widgets/dont_have_account_text.dart';
 import 'package:taski/features/login/ui/widgets/login_art.dart';
 import 'package:taski/features/login/ui/widgets/login_textformfields.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../core/routing/routs.dart';
 import '../../../core/theming/styles.dart';
@@ -26,8 +28,22 @@ class LoginScreen extends StatelessWidget {
       child: Scaffold(
         body: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {
-            if(state is LoginSuccess){
-              context.pushNamed(Routes.homeScreen);
+            if(state is LoginSuccess){  showTopSnackBar(
+              Overlay.of(context),
+              CustomSnackBar.success(
+                message: "تم تسجيل الدخول بنجاح".toUpperCase(),
+              ),
+            );
+
+              context.pushReplacementNamed(Routes.homeScreen);
+            }
+            if(state is LoginFail){
+              showTopSnackBar(
+                Overlay.of(context),
+                CustomSnackBar.error(
+                  message: state.error.toString(),
+                ),
+              );
             }
           },
           builder: (context, state){

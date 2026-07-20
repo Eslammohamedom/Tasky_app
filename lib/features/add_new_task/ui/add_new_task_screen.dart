@@ -9,6 +9,8 @@ import 'package:taski/features/add_new_task/ui/widgets/add_image_pattern.dart';
 import 'package:taski/features/add_new_task/ui/widgets/add_task_appbar.dart';
 import 'package:taski/features/add_new_task/ui/widgets/task_priority_and_date.dart';
 import 'package:taski/features/add_new_task/ui/widgets/task_title_and_discribtion.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../../../core/theming/styles.dart';
 
 
@@ -22,7 +24,14 @@ class AddNewTaskScreen extends StatelessWidget {
       create: (context) => AddTaskCubit(),
       child: BlocConsumer<AddTaskCubit, AddTaskState>(
         listener: (context, state) {
-          // TODO: implement listener
+         if(state is AddTaskTextsSuccess){
+           showTopSnackBar(
+             Overlay.of(context),
+             CustomSnackBar.success(
+               message: "task added successfully".toUpperCase(),
+             ),
+           );
+         }
         },
         builder: (context, state) {
           var cubit = AddTaskCubit.get(context);

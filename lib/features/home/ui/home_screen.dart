@@ -4,8 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taski/features/home/ui/widgets/barcode_and_add_icon.dart';
 import 'package:taski/features/home/ui/widgets/app_par/home_app_bar.dart';
-import 'package:taski/features/home/ui/widgets/home_shimmer_effict.dart';
 import 'package:taski/features/home/ui/widgets/status_list/task_status_list.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/styles.dart';
 import '../logic/home_cubit.dart';
@@ -24,7 +25,20 @@ class _HomeScreenState extends State<HomeScreen> {
       create: (context) => HomeCubit()..getAllTasksData(context: context),
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
-          // TODO: implement listener
+
+          if(state is LogOutSuccess){
+          showTopSnackBar(
+            Overlay.of(context),
+            CustomSnackBar.success(
+              message: "تم تسجيل الخروج بنجاح".toUpperCase(),
+            ),
+          );}
+          if(state is DeleteTaskSuccess){
+            showTopSnackBar(
+                Overlay.of(context),
+                CustomSnackBar.success(message: "   تم الحزف    ")
+            );
+          }
         },
         builder: (context, state) {
           HomeCubit cubit = HomeCubit.get(context);
@@ -78,5 +92,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-///development
-///development2
+

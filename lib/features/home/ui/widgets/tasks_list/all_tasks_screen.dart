@@ -11,7 +11,7 @@ class AllTasksScreen extends StatelessWidget {
     var cubit = HomeCubit.get(context);
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        return cubit.allTasks.isNotEmpty && state is !HomeLoading
+        return cubit.allTasks.isNotEmpty
             ?ListView.builder(
           shrinkWrap: true,
           itemCount: cubit.allTasks.length,
@@ -21,7 +21,8 @@ class AllTasksScreen extends StatelessWidget {
           },
 
         )
-        :state is HomeLoading? const Center(child: CupertinoActivityIndicator()) :  Center(child: Text("No Tasks ",style: AppTextStyles.font19MainBlueMedium,));
+            :state is HomeLoading ?Center(child:CupertinoActivityIndicator()):Center(child: Text("No Tasks",style: AppTextStyles.font19MainBlueMedium,));
+        ;
       },
     );
   }

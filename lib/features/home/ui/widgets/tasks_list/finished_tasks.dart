@@ -25,7 +25,7 @@ class FinishedTasksScreen extends StatelessWidget {
              return myTasksListItem(context, cubit.finishedTasks, index,cubit,state);
           },
 
-        ):  Center(child: Text("No Finished Tasks",style: AppTextStyles.font19MainBlueMedium,));
+        ): state is HomeLoading ?Center(child:CupertinoActivityIndicator()): Center(child: Text("No Finished Tasks",style: AppTextStyles.font19MainBlueMedium,));
       },
     );
   }

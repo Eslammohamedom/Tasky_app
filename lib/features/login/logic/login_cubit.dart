@@ -32,30 +32,21 @@ LoginFailModel loginFailModel = LoginFailModel();
       if (value.statusCode == 201){
         loginModel = LoginModel.fromJson(value.data);
         debugPrint("${loginModel.sId.toString().toUpperCase()} ==++ SUCCESS");
-        showTopSnackBar(
-          Overlay.of(context),
-          CustomSnackBar.success(
-            message: "تم تسجيل الدخول بنجاح".toUpperCase(),
-          ),
-        );
+
         await SecureStorageHelper.saveData(key:SecureStorageKeys.accessToken, value: loginModel.accessToken.toString());
         await SecureStorageHelper.saveData(key: SecureStorageKeys.refreshToken, value: loginModel.refreshToken.toString());
         emit(LoginSuccess());
       }
 
     }).catchError((e){
-      emit(LoginFail());
-      print("${e.toString()} ==++ ERROR");
+
+      debugPrint("${e.toString()} ==++ ERROR");
       if (e.response != null && e.response?.data != null) {
         loginFailModel = LoginFailModel.fromJson(e.response?.data);
-        showTopSnackBar(
-          Overlay.of(context),
-          CustomSnackBar.error(
-            message: loginFailModel.message.toString().toUpperCase(),
-          ),
-        );
-        print('Error in  REGISTAR Cubit ${e.toString()}');
+        emit(LoginFail(error: loginFailModel.message!.toString()));
+        debugPrint('Error in  REGISTAR Cubit ${e.toString()}');
       }
+
     });
   }
 

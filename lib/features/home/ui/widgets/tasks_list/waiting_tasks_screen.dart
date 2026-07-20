@@ -27,7 +27,7 @@ class WaitingTasksScreen extends StatelessWidget {
           },
 
         )
-        : Center(child: Text("NO WAITING TASKS ",style: AppTextStyles.font19MainBlueMedium,));
+        : state is HomeLoading ?Center(child:CupertinoActivityIndicator()):Center(child: Text("NO WAITING TASKS ",style: AppTextStyles.font19MainBlueMedium,));
       },
     );
   }

@@ -141,12 +141,6 @@ Future<void> clearTasksListAndGetTasksData(BuildContext context)async{
       'token': accessToken.toString().trim(),
     }).then((value) async{
       if (value.statusCode == 201){
-        showTopSnackBar(
-          Overlay.of(context),
-          CustomSnackBar.success(
-            message: "تم تسجيل الخروج بنجاح".toUpperCase(),
-          ),
-        );
         await SecureStorageHelper.removeData(key: SecureStorageKeys.accessToken);
         await SecureStorageHelper.removeData(key: SecureStorageKeys.refreshToken);
         context.pushNamed(Routes.loginScreen);
@@ -174,10 +168,7 @@ Future<void> clearTasksListAndGetTasksData(BuildContext context)async{
         finishedTasks.removeWhere((item) => item.sId == id);
         inProgressTasks.removeWhere((item) => item.sId == id);
         waitingTasks.removeWhere((item) => item.sId == id);
-        showTopSnackBar(
-         Overlay.of(context),
-         CustomSnackBar.success(message: "   تم الحزف    ")
-       );
+
         emit(DeleteTaskSuccess());
       }
 

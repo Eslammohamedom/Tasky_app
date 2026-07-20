@@ -25,7 +25,7 @@ class InProgressTasksScreen extends StatelessWidget {
             return myTasksListItem(context, cubit.inProgressTasks, index,cubit,state);
           },
 
-        ): Center(child: Text("No INPROGRESS Tasks",style: AppTextStyles.font19MainBlueMedium,));
+        ): state is HomeLoading ?Center(child:CupertinoActivityIndicator()):Center(child: Text("No INPROGRESS Tasks",style: AppTextStyles.font19MainBlueMedium,));
       },
     );
   }
